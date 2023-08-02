@@ -1,12 +1,3 @@
-//import okhttp3.OkHttpClient
-//import retrofit2.Retrofit
-
-//dependencies {
-//    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
-//    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-//    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-//}
-
 /**
  * ---------------------------------------------------------------------------------------------
  *                                         上传Apk文件到我的蒲公英
@@ -14,36 +5,73 @@
  * @description ：v1.0.0_alpha
  */
 
+//dependencies {
+//    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+//    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+//    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+//    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+//}
+//
+//import com.google.gson.Gson
+//import com.google.gson.annotations.SerializedName
+//import okhttp3.OkHttpClient
+//import retrofit2.Response
+//import retrofit2.Retrofit
 //import retrofit2.Call
 //import retrofit2.http.Body
+//import retrofit2.http.FormUrlEncoded
 //import retrofit2.http.POST
-
+//
 //def pgy_base_url = 'https://www.pgyer.com/apiv2/app/'
 //def api_key = 'de0f88af701cd8853bec33df259cc83e'
 //def dd_web_hook = 'https://oapi.dingtalk.com/robot/send?access_token=d0847aaa3043c3d85e96a6784502c1304b6e3103f8b872d6b82e7b6c4f04a0a1'
 ////获取上传的token
 //def result_key = null
-
-//interface ApiService {
-//    @POST("getCOSToken")
-//    Call<String> getUploadKey(@Body Map<String, Object> map)
-//}
-
-/**
- * 获取上传的token
- */
-//class GetUploadToken {
-//    //key 上传文件存储标识唯一 key
-//    String key;
-//    //上传文件的 URL
-//    String endpoint;
-//    //上传文件需要的参数，包含signature、x-cos-security-token、key
-//    String params;
 //
+//interface ApiService {
+//    @FormUrlEncoded
+//    @POST("getCOSToken")
+//    Call<BaseResponseBean<PgyTokenBean>> getUploadKey(@Body Map<String, Object> map)
+//}
+//
+//class BaseResponseBean<T> implements Serializable {
+//    public Integer code
+//    public String message
+//    public T data
 //
 //    @Override
 //    public String toString() {
-//        return "key：$key，endpoint：$endpoint，params：$params"
+//        return new Gson().toJson(this);
+//    }
+//}
+//
+///**
+// * 获取上传的token
+// */
+//class PgyTokenBean {
+//    //key 上传文件存储标识唯一 key
+//    String key
+//    //上传文件的 URL
+//    String endpoint
+//    //上传文件需要的参数，包含signature、x-cos-security-token、key
+//    ParamsBean params
+//
+//    static class ParamsBean implements Serializable {
+//
+//        public String signature
+//        @SerializedName("x-cos-security-token")
+//        public String xToken
+//        public String key
+//
+//        @Override
+//         String toString() {
+//            return new Gson().toJson(this);
+//        }
+//    }
+//
+//    @Override
+//    String toString() {
+//        return new Gson().toJson(this);
 //    }
 //}
 //
@@ -53,25 +81,47 @@
 //        .client(mOkhttpClient)
 //        .addConverterFactory(GsonConverterFactory.create())
 //        .build()
-//def apiService = mRetrofit.create(ApiService.class)
-
-/**
- * ---------------------------------------------------------------------------------------------
- *                                          优美的分割线
- * ---------------------------------------------------------------------------------------------
- * @description ：
- */
-
+//def mPgyApiService = mRetrofit.create(ApiService.class)
+//
+///**
+// * ---------------------------------------------------------------------------------------------
+// *                                          优美的分割线
+// * ---------------------------------------------------------------------------------------------
+// * @description ：
+// */
+//def GROUP_ID="group_token"
+//
 //def firstRunTask = tasks.register('AFirstRun') {
+//    it.group(GROUP_ID)
 //    it.doFirst {
+//        System.out.print("AFirstRun.doFirst is running...")
 //    }
 //    it.doLast {
-//        System.out.print("AFirstRunTask is running...")
+//        System.out.print("AFirstRun.doLast is running...")
 //    }
 //}
 //def lastRunTask = tasks.register('ALastRun') {
+//    it.group(GROUP_ID)
 //    it.doLast {
-//        System.out.print("ALastRunTask is running...")
+//        System.out.print("ALastRun.doLast is running...")
+//        Map<String, Object> map = new HashMap<String, Object>(11) {
+//            {
+//                put("_api_key", api_key)
+//                put("buildType", "android")
+//                put("oversea", 2)
+//                put("buildInstallType", 1)
+//                put("buildPassword", "")
+//                put("buildDescription", "获取蒲公英token")
+//                put("buildUpdateDescription", "更新描述")
+//                put("buildInstallDate", 2)
+//                put("buildInstallStartDate","")
+//                put("buildInstallEndDate", "")
+//                put("buildChannelShortcut", "")
+//            }
+//        }
+//        Call<BaseResponseBean<PgyTokenBean>> callBack = mPgyApiService.getUploadKey(map)
+//        Response<BaseResponseBean<PgyTokenBean>> result = callBack.execute()
+//        println("打印："+ result.body().data)
 //    }
 //}
 //
@@ -84,5 +134,3 @@
 //        it.finalizedBy(lastRunTask)
 //    }
 //}
-
-

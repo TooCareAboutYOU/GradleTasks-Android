@@ -58,7 +58,7 @@ def lib2 = tasks.register('lib2') {
     it.group(GROUP_ID)
     it.doLast {
         System.out.println("lib2-1：${System.currentTimeSeconds()}")
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         System.out.println("lib2-2：${System.currentTimeSeconds()}")
     }
 }
