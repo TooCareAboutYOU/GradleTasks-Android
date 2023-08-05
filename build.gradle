@@ -1,15 +1,18 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    repositories {
+        //本地仓库 /Users/zhangshuai/.m2/repository
+//        mavenLocal()
+        //自定义仓库路径
+        maven { url = 'pluginLibrary/repo' }
+    }
     dependencies {
-        classpath 'com.squareup.okhttp3:okhttp:4.10.0'
-        classpath 'com.squareup.retrofit2:retrofit:2.9.0'
-        classpath 'com.squareup.retrofit2:converter-gson:2.9.0'
-        classpath 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+        classpath 'com.closure.plugin:closure-plugin:1.0.0'
     }
 }
 
 plugins {
-    id 'com.android.application' version '8.0.2' apply false
-    id 'com.android.library' version '8.0.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.8.20' apply false
+    id 'com.android.application' version '8.0.0' apply false
+    id 'com.android.library' version '8.0.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
 }

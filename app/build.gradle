@@ -1,14 +1,31 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'closure-plugin'
 }
 
 //打包apk上传到蒲公英，并发通知到钉钉
 apply from: "${rootProject.rootDir}/script/UploadApk.gradle"
 //自定义一
-apply from: "${rootProject.rootDir}/script/Tasks.gradle"
+apply from: "${rootProject.rootDir}/tasks/Tasks.gradle"
 //自定义二
-apply from: "${rootProject.rootDir}/script/DemoPlugin.gradle"
+apply from: "${rootProject.rootDir}/tasks/ClosurePlugin.gradle"
+//自定义三
+apply from: "${rootProject.rootDir}/tasks/MoveFileTasks.gradle"
+//自定义四
+apply from: "${rootProject.rootDir}/tasks/ReadWriteFilePlugin.gradle"
+
+
+myClosure.message = "I am from app::build.gradle."
+myClosureImpl {
+    message = "Hello."
+    greeter = "World."
+}
+configClosure {
+    name = 'assembleRelease'
+    path = "${rootProject.rootDir}/ClosureConfig.json"
+}
+
 
 android {
     namespace 'com.gradle.tasks.android'
@@ -22,6 +39,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("${rootDir}/gradle-tasks.jks")
+            storePassword 'zxcvbnm'
+            keyAlias 'zxcvbnm'
+            keyPassword 'zxcvbnm'
+        }
     }
 
     buildTypes {
@@ -49,7 +75,7 @@ android {
 }
 
 dependencies {
-
+    implementation fileTree(includes: ['*.jar'], dir: 'libs')
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'

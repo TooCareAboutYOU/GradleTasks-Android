@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "GradleTasks-Android"
 include ':app'
+include ':pluginLibrary'

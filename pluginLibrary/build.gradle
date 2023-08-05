@@ -1,0 +1,90 @@
+/**
+ * 使用方式：
+ * 依赖包：classpath 'com.closure.plugin:closure-plugin:1.0.0'
+ * 依赖插件：plugins{ id 'closure-plugin' }
+ */
+
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'groovy'
+    id 'kotlin'
+    id 'base'
+}
+
+dependencies {
+    //gradle sdk
+    implementation gradleApi()
+    //groovy SDK
+    implementation localGroovy()
+}
+
+java {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+}
+
+def PLUGIN_MAVEN_GROUP_IP = 'com.closure.plugin'
+def PLUGIN_MAVEN_ARTIFACT_ID = 'closure-plugin'
+def PLUGIN_MAVEN_VERSION = '1.0.0'
+
+gradlePlugin {
+    plugins {
+        androids {
+            id = PLUGIN_MAVEN_ARTIFACT_ID
+            implementationClass = 'com.closure.plugin.MyClosurePlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        android(MavenPublication) {
+            groupId = PLUGIN_MAVEN_GROUP_IP
+            artifactId = PLUGIN_MAVEN_ARTIFACT_ID
+            version = PLUGIN_MAVEN_VERSION
+            // 组件类型
+            from components.java
+
+            pom {
+                name = "Closure Plugin"
+                description = "Custom closure plugin "
+                url = "https://github.com/andzhangs/GradleTasks-Android"
+                inceptionYear = '2023/08/05'
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "zs"
+                        name = "zhagnshuai"
+                        email = "1175133706@qq.com"
+                        organization = '上海双深技术有限公司'
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        //默认路径：.m2/repository
+//        mavenLocal()
+        maven {
+//            allowInsecureProtocol true
+//                name = MAVEN_NAME //可选
+//            credentials {
+//                username = MAVEN_USERNAME
+//                password = MAVEN_PASSWORD
+//            }
+
+            //自定义路径：pluginLibrary/repo
+            url = layout.projectDirectory.dir('repo')
+            //自定义路径： 项目级别 repo
+//            url = uri('../repo')
+        }
+    }
+
+}

@@ -28,7 +28,7 @@ aTask_1.configure {
     //1
     it.dependsOn aTask_2
 
-    //2
+//    2
 //    it.onlyIf {
 //        !project.hasProperty('skipTasks')
 //    }

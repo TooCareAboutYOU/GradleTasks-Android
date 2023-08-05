@@ -1,0 +1,55 @@
+/**
+ * Making the plugin configurable
+ */
+abstract class GreetingPluginExtension {
+
+    abstract Property<String> getMessage()
+
+    GreetingPluginExtension() {
+        message.convention('Hello from GreetingPlugin')
+    }
+}
+
+interface GreetingPluginExtensionImpl {
+    Property<String> getMessage()
+    Property<String> getGreeter()
+}
+
+/**
+ * Writing a simple plugin
+ */
+class GreetingPlugin implements Plugin<Project> {
+
+    private String PLUGIN_NAME = 'AGreetingPlugin'
+
+    @Override
+    void apply(Project project) {
+
+        def extension = project.extensions.create("greeting", GreetingPluginExtension)
+
+        def extensionImpl = project.extensions.create("greetingImpl", GreetingPluginExtensionImpl)
+
+        project.task(PLUGIN_NAME) {
+            group('a_demo_tasks')
+//            println("I'm from ClosurePlugin.gradle's GreetingPlugin")
+            doFirst {
+                println("I'm from GreetingPlugin.doFirst：")
+                println "打印：${extensionImpl.message.get()}，${extensionImpl.greeter.get()}"
+            }
+
+            doLast {
+                println("I'm from GreetingPlugin.doLast：")
+                println "输出：" + extension.message.get()
+            }
+        }
+    }
+}
+
+apply plugin: GreetingPlugin
+
+greetingImpl {
+    message = "Hi greetingImpl,I from Gradle' message"
+    greeter = "Hi greetingImpl,I from Gradle' greeter"
+}
+
+greeting.message = "Hi greeting, I from Gradle"
