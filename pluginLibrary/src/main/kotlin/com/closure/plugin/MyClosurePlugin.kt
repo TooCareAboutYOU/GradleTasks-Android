@@ -18,11 +18,11 @@ class MyClosurePlugin : Plugin<Project> {
 
     private val myClosure = "myClosure"
     private val myClosureImpl = "myClosureImpl"
-    private val configClosure = "configClosure"
+    private val uploadApk = "uploadApk"
 
     private lateinit var extension: PluginExtension
     private lateinit var extensionImpl: IPluginExtension
-    private lateinit var configExtension: ConfigPluginExtensions
+    private lateinit var uploadApkExtension: ConfigPluginExtensions
 
 
     override fun apply(project: Project) {
@@ -36,13 +36,13 @@ class MyClosurePlugin : Plugin<Project> {
         extensionImpl = project.extensions.create(myClosureImpl, IPluginExtension::class.java)
 
         //方式三
-        configExtension = project.extensions.create(configClosure, ConfigPluginExtensions::class.java)
+        uploadApkExtension = project.extensions.create(uploadApk, ConfigPluginExtensions::class.java)
 
         project.afterEvaluate {
             it.tasks.matching { task ->
-                configExtension.name == task.name
+                uploadApkExtension.name == task.name
             }.forEach { task ->
-                println("输出配置：${configExtension.path}")
+                println("输出配置：${uploadApkExtension.path}")
                 task.finalizedBy(pluginTaskName)
                 createTask(it)
             }
@@ -51,8 +51,8 @@ class MyClosurePlugin : Plugin<Project> {
 
     private fun createTask(project: Project) {
         project.task(pluginTaskName) {
-            println("配置task：${configExtension.name}")
-            it.dependsOn(configExtension.name)
+            println("配置task：${uploadApkExtension.name}")
+            it.dependsOn(uploadApkExtension.name)
             it.group = groupId
             it.doFirst {
                 println("pluginName.doFirst.....")
@@ -63,7 +63,7 @@ class MyClosurePlugin : Plugin<Project> {
                 println("pluginName.doLast.....")
                 println("获取：message= ${extensionImpl.getMessage().get()}")
                 println("获取：greeter= ${extensionImpl.getGreeter().get()}")
-                println("打印文件路径：path= ${configExtension.path}")
+                println("打印文件路径：path= ${uploadApkExtension.path}")
             }
         }
     }

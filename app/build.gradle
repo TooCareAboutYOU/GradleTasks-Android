@@ -21,7 +21,7 @@ myClosureImpl {
     message = "Hello."
     greeter = "World."
 }
-configClosure {
+uploadApk {
     name = 'assembleRelease'
     path = "${rootProject.rootDir}/ClosureConfig.json"
 }
