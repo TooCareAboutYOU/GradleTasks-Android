@@ -7,13 +7,7 @@
 
 class Run {
     static void main(String[] args) {
-        try {
-            IFoo iFoo = GroovyHelper.invokeMethod("FooGroovy.groovy")
-            int result = iFoo.run(99)
-            println("输出结果：" + result)
-        } catch (Exception e) {
-            e.printStackTrace()
-            println("异常：" + e)
-        }
+//        GroovyHelper2.invokeMethod("FooGroovy.groovy","run",99)
+        System.out.println("哈哈哈");
     }
 }

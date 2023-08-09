@@ -1,6 +1,6 @@
 plugins {
+    id 'java-library'
     id 'groovy'
-
 }
 
 //打包apk上传到蒲公英，并发通知到钉钉

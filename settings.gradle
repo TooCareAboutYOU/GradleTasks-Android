@@ -32,3 +32,48 @@ rootProject.name = "GradleTasks-Android"
 include ':app'
 include ':pluginLibrary'
 include ':lib_groovy'
+
+//各个模块
+gradle.allprojects {
+    beforeEvaluate {
+        println("---Gradle：settingsEvaluated Settings对象评估完毕 " + project.name)
+    }
+
+    afterEvaluate {
+        println("---Gradle：projectsLoaded 准备加载Project对象了-2 " + project.name)
+    }
+}
+
+gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+    @Override
+    void beforeEvaluate(Project project) {
+        println("ProjectEvaluationListener --->>> beforeEvaluate "+project.name)
+    }
+
+    @Override
+    void afterEvaluate(Project project, ProjectState state) {
+        println("ProjectEvaluationListener --->>> afterEvaluate "+project.name)
+    }
+})
+
+gradle.addBuildListener(new BuildListener() {
+    @Override
+    void settingsEvaluated(Settings settings) {
+        println("BuildListener --->>> settingsEvaluated")
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+        println("BuildListener --->>> projectsLoaded")
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+        println("BuildListener --->>> projectsEvaluated")
+    }
+
+    @Override
+    void buildFinished(BuildResult buildResult) {
+        println("BuildListener --->>> buildFinished")
+    }
+})
