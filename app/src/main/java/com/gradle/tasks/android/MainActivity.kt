@@ -2,7 +2,6 @@ package com.gradle.tasks.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import com.gradle.tasks.android.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -11,24 +10,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Example of a call to a native method
         binding.sampleText.text = stringFromJNI()
     }
 
-    /**
-     * A native method that is implemented by the 'android' native library,
-     * which is packaged with this application.
-     */
-    external fun stringFromJNI(): String
 
+    /**
+     * ---------------------------------------------------------------------------------------------
+     *
+     * ---------------------------------------------------------------------------------------------
+     * description： JNI
+     */
     companion object {
-        // Used to load the 'android' library on application startup.
         init {
             System.loadLibrary("android")
         }
     }
+
+    external fun stringFromJNI(): String
+
 }

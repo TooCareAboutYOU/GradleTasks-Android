@@ -8,8 +8,17 @@ buildscript {
     }
     dependencies {
         classpath 'com.closure.plugin:closure-plugin:1.0.0'
+
+//        classpath 'org.codehaus.groovy:groovy-android-gradle-plugin:2.0.1'
+
+//        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0'
+
+        classpath "com.squareup.okhttp3:okhttp:4.10.0"
+        classpath "com.squareup.retrofit2:retrofit:2.9.0"
+        classpath "com.squareup.retrofit2:converter-gson:2.9.0"
     }
 }
+
 
 plugins {
     id 'com.android.application' version '8.0.0' apply false

@@ -32,7 +32,7 @@ gradlePlugin {
     plugins {
         androids {
             id = PLUGIN_MAVEN_ARTIFACT_ID
-            implementationClass = 'com.closure.plugin.MyClosurePlugin'
+            implementationClass = 'com.closure.plugin.CustomClosurePlugin'
         }
     }
 }

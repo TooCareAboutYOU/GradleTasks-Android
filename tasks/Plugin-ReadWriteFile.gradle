@@ -1,0 +1,51 @@
+/**
+ * Working with files in custom tasks and plugins
+ */
+abstract class GreetingToFileTask extends DefaultTask {
+
+    @Input
+    abstract Property<String> getMessage()
+
+    GreetingToFileTask() {
+        message.convention('Hello from GreetingToFileTask')
+    }
+
+    @OutputFile
+    abstract RegularFileProperty getDestination()
+
+    @TaskAction
+    def greet() {
+        def file = getDestination().get().asFile
+        file.parentFile.mkdirs()
+        file.write("I am a file's write message!")
+    }
+
+    @Override
+    void setGroup(String group) {
+        super.setGroup('tasks read write file')
+    }
+}
+
+def greetFile = objects.fileProperty()
+tasks.register('AGreetFile', GreetingToFileTask) {
+    group('tasks read write file')
+
+//    def greetFile = objects.fileProperty()
+    greetFile.set(layout.projectDirectory.file('Hello.txt'))
+    destination = greetFile
+
+    it.message='message is from AGreetFile! from Plugin-Closure.gradle'
+
+    doLast {
+        println 'AGreetFile is running by Plugin-Closure.gradle'
+    }
+}
+
+tasks.register('AGreetFilePrint') {
+    group('tasks read write file')
+    dependsOn AGreetFile
+    doLast {
+        def file = greetFile.get().asFile
+        println "文件名:${file.name}，文件内容：${file.text}"
+    }
+}
