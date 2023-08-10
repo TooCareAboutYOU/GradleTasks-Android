@@ -8,6 +8,5 @@
 class Run {
     static void main(String[] args) {
 //        GroovyHelper2.invokeMethod("FooGroovy.groovy","run",99)
-        System.out.println("哈哈哈");
     }
 }
