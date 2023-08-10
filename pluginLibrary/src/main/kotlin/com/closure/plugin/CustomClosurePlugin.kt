@@ -27,7 +27,6 @@ class CustomClosurePlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
 
-//        println("初始化插件....")
 
         //方式一
         extension = project.extensions.create(myClosure, PluginExtension::class.java)
@@ -42,7 +41,6 @@ class CustomClosurePlugin : Plugin<Project> {
             it.tasks.matching { task ->
                 uploadApkExtension.name == task.name
             }.forEach { task ->
-//                println("输出配置：${uploadApkExtension.path}")
                 task.finalizedBy(pluginTaskName)
                 createTask(it)
             }
@@ -51,7 +49,6 @@ class CustomClosurePlugin : Plugin<Project> {
 
     private fun createTask(project: Project) {
         project.task(pluginTaskName) {
-//            println("配置task：${uploadApkExtension.name}")
             it.dependsOn(uploadApkExtension.name)
             it.group = groupId
             it.doFirst {

@@ -56,24 +56,24 @@ gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
     }
 })
 
-gradle.addBuildListener(new BuildListener() {
-    @Override
-    void settingsEvaluated(Settings settings) {
-        println("BuildListener --->>> settingsEvaluated")
-    }
-
-    @Override
-    void projectsLoaded(Gradle gradle) {
-        println("BuildListener --->>> projectsLoaded")
-    }
-
-    @Override
-    void projectsEvaluated(Gradle gradle) {
-        println("BuildListener --->>> projectsEvaluated")
-    }
-
-    @Override
-    void buildFinished(BuildResult buildResult) {
-        println("BuildListener --->>> buildFinished")
-    }
-})
+//gradle.addBuildListener(new BuildListener() {
+//    @Override
+//    void settingsEvaluated(Settings settings) {
+//        println("BuildListener --->>> settingsEvaluated")
+//    }
+//
+//    @Override
+//    void projectsLoaded(Gradle gradle) {
+//        println("BuildListener --->>> projectsLoaded")
+//    }
+//
+//    @Override
+//    void projectsEvaluated(Gradle gradle) {
+//        println("BuildListener --->>> projectsEvaluated")
+//    }
+//
+//    @Override
+//    void buildFinished(BuildResult buildResult) {
+//        println("BuildListener --->>> buildFinished")
+//    }
+//})
