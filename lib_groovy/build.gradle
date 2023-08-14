@@ -39,7 +39,6 @@ targetCompatibility JavaVersion.VERSION_17
 sourceSets {
     main {
         groovy.srcDirs = ['src/main/groovy']
-
         java.srcDirs = ['src/main/java']
     }
 }
@@ -50,17 +49,16 @@ jar {
 
 dependencies {
     implementation gradleApi()
-    implementation localGroovy()
-    implementation 'org.codehaus.groovy:groovy-all:3.0.13'
+//    implementation localGroovy()
+//    implementation 'org.codehaus.groovy:groovy:3.0.13'
 }
 
 tasks.withType(Test).configureEach {
     if (project.hasProperty('createReports')) {
         System.out.println("configureEach：before-1 " + System.currentTimeMillis())
-        Thread.sleep(2000L)
         def jsonStr = '{"name":"Tom","age":20,"friends":["Jerry","Spike"]}'
         def json = new JsonSlurper().parseText(jsonStr)
-        System.out.println("输出：name = " + json.name + ", age = " + json.age + ", friends = " + json[0] + ", " + json[1])
+        System.out.println("输出：name= " + json.name + ", age= " + json.age + ", friends= " + json.friends)
         System.out.println("configureEach：after-2 " + System.currentTimeMillis())
     }
 }

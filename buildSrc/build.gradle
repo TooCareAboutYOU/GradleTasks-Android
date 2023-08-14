@@ -1,0 +1,48 @@
+plugins {
+    id 'groovy-gradle-plugin'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'java-library'
+    id 'groovy'
+//    id 'kotlin'
+    id 'base'
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+//    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.0'
+}
+
+sourceCompatibility JavaVersion.VERSION_17
+targetCompatibility JavaVersion.VERSION_17
+
+sourceSets {
+    main {
+        groovy.srcDirs = ['src/main/groovy']
+        java.srcDirs = ['src/main/java']
+//        kotlin.srcDirs = ['src/main/kotlin']
+    }
+}
+
+//----------------------------------------------------------------------------------------------
+// classPath 'com.zs.plugin.buildSrc:'
+
+//本地依赖插件时使用
+gradlePlugin {
+    plugins {
+        buildSrcPlugin {
+            // 你的插件id，外部项目引用时需要
+            id = 'com.zs.plugin.buildSrc'
+            // 插件的具体实现类
+            implementationClass = 'com.zs.plugin.BuildSrcGradlePlugin'
+        }
+    }
+}

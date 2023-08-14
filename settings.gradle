@@ -1,8 +1,8 @@
 pluginManagement {
     repositories {
         maven { url "https://jitpack.io" }
-        maven { url 'https://maven.aliyun.com/repository/google/'}
-        maven { url 'https://maven.aliyun.com/repository/jcenter/'}
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter/' }
         google()
         jcenter()
         mavenCentral()
@@ -17,8 +17,8 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         maven { url "https://jitpack.io" }
-        maven { url 'https://maven.aliyun.com/repository/google/'}
-        maven { url 'https://maven.aliyun.com/repository/jcenter/'}
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter/' }
         google()
         jcenter()
         mavenCentral()
@@ -30,31 +30,34 @@ dependencyResolutionManagement {
 }
 rootProject.name = "GradleTasks-Android"
 include ':app'
-include ':pluginLibrary'
 include ':lib_groovy'
+include ':pluginLibrary'
+//调试模式
+//includeBuild('pluginLibrary')
+
 
 //各个模块
-gradle.allprojects {
-    beforeEvaluate {
-        println("---Gradle：settingsEvaluated Settings对象评估完毕 " + project.name)
-    }
-
-    afterEvaluate {
-        println("---Gradle：projectsLoaded 准备加载Project对象了-2 " + project.name)
-    }
-}
-
-gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
-    @Override
-    void beforeEvaluate(Project project) {
-        println("ProjectEvaluationListener --->>> beforeEvaluate "+project.name)
-    }
-
-    @Override
-    void afterEvaluate(Project project, ProjectState state) {
-        println("ProjectEvaluationListener --->>> afterEvaluate "+project.name)
-    }
-})
+//gradle.allprojects {
+//    beforeEvaluate {
+//        println("---Gradle：settingsEvaluated Settings对象评估完毕 " + project.name)
+//    }
+//
+//    afterEvaluate {
+//        println("---Gradle：projectsLoaded 准备加载Project对象了-2 " + project.name)
+//    }
+//}
+//
+//gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+//    @Override
+//    void beforeEvaluate(Project project) {
+//        println("ProjectEvaluationListener --->>> beforeEvaluate " + project.name)
+//    }
+//
+//    @Override
+//    void afterEvaluate(Project project, ProjectState state) {
+//        println("ProjectEvaluationListener --->>> afterEvaluate " + project.name)
+//    }
+//})
 
 //gradle.addBuildListener(new BuildListener() {
 //    @Override
