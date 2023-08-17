@@ -23,6 +23,20 @@ add_library( # Sets the name of the library.
         # Provides a relative path to your source file(s).
         native-lib.cpp)
 
+
+add_library(
+        jsoncpp
+
+        SHARED
+
+        IMPORTED
+)
+
+set_target_properties(
+        jsoncpp
+        PROPERTIES IMPORTED_LOCATION
+        ${PROJECT_SOURCE_DIR}/json/jniLibs/${ANDROID_ABI}/libjsoncpp.so)
+
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
 # default, you only need to specify the name of the public NDK library
@@ -42,6 +56,7 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
         android
+        jsoncpp
 
         # Links the target library to the log library
         # included in the NDK.

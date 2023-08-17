@@ -9,13 +9,13 @@ import java.util.UUID
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val stringBuilder: StringBuilder by lazy { StringBuilder() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        binding.sampleText.text = stringFromJNI()
-
+        stringBuilder.append("jni_json：${stringFromJNI()}").append("\n")
         try {
             val WIDEVINE_UUID = UUID(-0x121074568629b532L, -0x5c37d8232ae2de13L)
             val mediaDrm = MediaDrm(WIDEVINE_UUID)
@@ -24,16 +24,18 @@ class MainActivity : AppCompatActivity() {
             widevineId.forEach {
                 sb.append(String.format("%02x", it))
             }
-            binding.sampleText.text = sb
+            stringBuilder.append("唯一标识：$sb")
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
+        binding.sampleText.text = stringBuilder.toString()
     }
 
     companion object {
         init {
             System.loadLibrary("android")
+            System.loadLibrary("jsoncpp")
         }
     }
 

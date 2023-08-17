@@ -11,6 +11,8 @@ pluginManagement {
             allowInsecureProtocol = true
             url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
         }
+
+//        maven { url 'https://raw.githubusercontent.com/martinloren/AabResGuard/mvn-repo' }
     }
 }
 dependencyResolutionManagement {
