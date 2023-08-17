@@ -23,7 +23,7 @@ add_library( # Sets the name of the library.
         # Provides a relative path to your source file(s).
         native-lib.cpp)
 
-
+# 添加外部依赖的so
 add_library(
         jsoncpp
 
@@ -35,7 +35,9 @@ add_library(
 set_target_properties(
         jsoncpp
         PROPERTIES IMPORTED_LOCATION
-        ${PROJECT_SOURCE_DIR}/json/jniLibs/${ANDROID_ABI}/libjsoncpp.so)
+        ../../../../src/main/jniLibs/${ANDROID_ABI}/libjsoncpp.so)
+
+include_directories(src/main/cpp/json)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
